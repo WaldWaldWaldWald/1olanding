@@ -1,0 +1,89 @@
+import { useEffect, useRef } from 'react'
+import { brand, nav, socials } from '../content.js'
+import { OrbitMark, CloseIcon, socialIcons } from '../Icons.jsx'
+import { useScrollLock } from '../hooks/useScrollLock.js'
+
+// Полноэкранное мобильное меню: lock body-scroll, Escape, фокус на первую
+// ссылку при открытии. Закрывается по ссылке, крестику и Escape.
+export default function MobileMenu({ open, onClose, onPlay }) {
+  const firstLink = useRef(null)
+  useScrollLock(open)
+
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', onKey)
+    const t = setTimeout(() => firstLink.current?.focus(), 60)
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      clearTimeout(t)
+    }
+  }, [open, onClose])
+
+  return (
+    <div className={`menu${open ? ' is-open' : ''}`} aria-hidden={!open}>
+      <div className="container menu__top">
+        <span className="brand">
+          <span className="brand__mark">
+            <OrbitMark />
+          </span>
+          <span>
+            1<b>orbit</b>
+          </span>
+        </span>
+        <button type="button" className="icon-btn" onClick={onClose} aria-label="Закрыть меню">
+          <CloseIcon />
+        </button>
+      </div>
+
+      <nav className="container menu__links" aria-label="Меню">
+        {nav.map((item, i) => (
+          <a
+            key={item.href}
+            href={item.href}
+            ref={i === 0 ? firstLink : null}
+            onClick={onClose}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <div className="container menu__cta">
+        <button
+          type="button"
+          className="btn btn--nebula btn--lg btn--block"
+          onClick={() => {
+            onClose()
+            onPlay()
+          }}
+        >
+          Играть бесплатно
+        </button>
+        <a className="btn btn--ghost btn--lg btn--block" href="#features" onClick={onClose}>
+          Предрегистрация
+        </a>
+
+        <div className="menu__social">
+          {socials.map((s) => {
+            const Icon = socialIcons[s.id]
+            return (
+              <a
+                key={s.id}
+                className="social-btn"
+                href={s.href}
+                aria-label={s.label}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {Icon ? <Icon /> : s.label[0]}
+              </a>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
