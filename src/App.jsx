@@ -4,7 +4,7 @@ import { features } from './content.js'
 import Header from './components/Header.jsx'
 import MobileMenu from './components/MobileMenu.jsx'
 import Hero from './components/Hero.jsx'
-import Steps from './components/Steps.jsx'
+import Pillars from './components/Pillars.jsx'
 import WorldSection from './components/WorldSection.jsx'
 import Features from './components/Features.jsx'
 import ShowcaseBreak from './components/ShowcaseBreak.jsx'
@@ -12,6 +12,7 @@ import Faq from './components/Faq.jsx'
 import Newsletter from './components/Newsletter.jsx'
 import Footer from './components/Footer.jsx'
 import TrailerModal from './components/TrailerModal.jsx'
+import SocialPrompt from './components/SocialPrompt.jsx'
 
 // Издания/предзаказ — до полноэкранной вставки; видео/медиа — после неё.
 const editions = features.slice(0, 2)
@@ -36,7 +37,7 @@ export default function App() {
 
   return (
     <>
-      <a className="skip-link" href="#how">
+      <a className="skip-link" href="#why">
         К содержимому
       </a>
       <div className="space-bg" aria-hidden="true" />
@@ -51,7 +52,7 @@ export default function App() {
 
       <main>
         <Hero onPreRegister={goPreRegister} onTrailer={openTrailer} />
-        <Steps />
+        <Pillars />
         <WorldSection />
         <Features
           id="features"
@@ -75,6 +76,7 @@ export default function App() {
       <Footer />
 
       <TrailerModal open={trailerOpen} onClose={() => setTrailerOpen(false)} />
+      <SocialPrompt />
     </>
   )
 }

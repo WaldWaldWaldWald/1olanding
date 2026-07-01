@@ -9,7 +9,19 @@ export default function WorldSection() {
     <section className="section" id={world.id}>
       <div className="container world">
         <div className="world__media reveal">
-          <ArtFrame caption={world.art.caption} ratio={world.art.ratio} />
+          {world.art.video ? (
+            <video
+              className="world__video"
+              src={world.art.video}
+              poster={world.art.poster || undefined}
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
+          ) : (
+            <ArtFrame caption={world.art.caption} ratio={world.art.ratio} video />
+          )}
         </div>
 
         <div className="world__text reveal" style={{ '--reveal-delay': '90ms' }}>
@@ -23,12 +35,6 @@ export default function WorldSection() {
                 <CheckIcon />
                 {b}
               </li>
-            ))}
-          </ul>
-
-          <ul className="world__systems" aria-label="Игровые системы">
-            {world.systems.map((s) => (
-              <li key={s}>{s}</li>
             ))}
           </ul>
 

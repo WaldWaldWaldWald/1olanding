@@ -606,12 +606,15 @@ input {
 }
 .platforms {
   display: flex;
-  gap: var(--space-sm);
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
 }
 .platforms__item {
   display: inline-flex;
   align-items: center;
   gap: 0.45em;
+  line-height: 1;
   color: var(--ink-2);
   font-weight: 600;
   font-size: var(--text-sm);
@@ -623,6 +626,8 @@ input {
 .platforms__item svg {
   width: 22px;
   height: 22px;
+  display: block;
+  flex: none;
 }
 .scroll-hint {
   position: relative;
@@ -675,13 +680,31 @@ input {
     scale(calc(1 - var(--p) * 0.06));
   opacity: calc(1 - var(--p) * 0.9);
 }
+.shard__img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* космо-оверлей поверх картинки — вписывает любой арт в палитру */
+.shard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(155deg, rgba(54, 226, 255, 0.2), transparent 45%, rgba(139, 92, 255, 0.32));
+}
 .shard__cap {
   position: absolute;
+  z-index: 2;
   inset: auto 0 0 0;
   padding: 0.5rem 0.6rem;
   font-size: 0.62rem;
   letter-spacing: 0.04em;
-  color: var(--ink-2);
+  color: var(--ink);
   background: linear-gradient(transparent, rgba(5, 6, 14, 0.85));
 }
 /* затемнение под контентом hero, чтобы текст читался поверх осколков */
@@ -716,8 +739,8 @@ input {
   font-size: var(--text-md);
 }
 
-/* ---- Steps («Как играть» — 3 шага) ------------------------------------ */
-.steps {
+/* ---- Pillars (УТП — 3 продающих преимущества) -------------------------- */
+.pillars {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -725,36 +748,40 @@ input {
   gap: var(--space-sm);
   grid-template-columns: 1fr;
 }
-.step {
+.pillar {
   position: relative;
   padding: var(--space-md);
   border-radius: var(--radius-lg);
   background: linear-gradient(180deg, var(--surface), var(--bg-1));
   border: 1px solid var(--line);
 }
-.step__n {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: var(--text-2xl);
-  line-height: 1;
-  background: var(--nebula);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.pillar__badge {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  color: var(--accent);
+  background: rgba(54, 226, 255, 0.12);
+  border: 1px solid var(--line-strong);
 }
-.step__title {
+.pillar__badge svg {
+  width: 26px;
+  height: 26px;
+}
+.pillar__title {
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: var(--text-lg);
   letter-spacing: -0.02em;
-  margin-top: var(--space-2xs);
+  margin-top: var(--space-sm);
 }
-.step__body {
+.pillar__body {
   margin-top: var(--space-2xs);
   color: var(--ink-2);
 }
 @media (min-width: 720px) {
-  .steps {
+  .pillars {
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -839,6 +866,7 @@ input {
   flex-direction: column;
   gap: 0.5rem;
   padding: var(--space-sm) var(--space-md) var(--space-md);
+  flex: 1 1 auto; /* тянется на всю высоту карточки — кнопки выстраиваются в ряд */
 }
 .card__kicker {
   font-family: var(--font-display);
@@ -860,13 +888,15 @@ input {
   font-size: var(--text-xl);
   letter-spacing: -0.02em;
   line-height: 1.02;
+  min-height: 2.04em; /* резерв под 2 строки — заголовки соседних карточек ровны */
 }
 .card__text {
   color: var(--ink-2);
   font-size: var(--text-base);
 }
 .card__cta {
-  margin-top: 0.4rem;
+  margin-top: auto; /* прижимаем кнопку к низу — ряд кнопок выровнен */
+  padding-top: 0.4rem;
 }
 /* акцентная полоска сверху карточки */
 .card::before {
@@ -948,6 +978,13 @@ input {
     justify-content: center;
     padding: var(--space-lg);
   }
+  /* широкие карточки — по центру, без прижатия кнопки/резерва заголовка */
+  .card--wide .card__title {
+    min-height: 0;
+  }
+  .card--wide .card__cta {
+    margin-top: 0;
+  }
 }
 
 /* ---- ArtFrame (плейсхолдер под арт) ----------------------------------- */
@@ -990,6 +1027,45 @@ input {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid var(--line-strong);
   color: var(--accent);
+}
+/* видео-плейсхолдер: play-хинт вместо «плюса» + бейдж «GIF / видео» */
+.artframe__playhint {
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(54, 226, 255, 0.16);
+  border: 1.5px solid var(--accent);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.artframe__playhint svg {
+  width: 26px;
+  height: 26px;
+  margin-left: 3px;
+}
+.artframe__badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.55rem;
+  border-radius: var(--radius-pill);
+  background: rgba(5, 6, 14, 0.6);
+  border: 1px solid var(--line-strong);
+  color: var(--accent);
+}
+.world__video {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 .artframe__cap {
   font-size: var(--text-sm);
@@ -1110,23 +1186,6 @@ input {
   color: var(--accent);
   flex: none;
 }
-.world__systems {
-  list-style: none;
-  padding: 0;
-  margin: var(--space-md) 0 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3xs);
-}
-.world__systems li {
-  padding: 0.35rem 0.75rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--line);
-  background: rgba(140, 150, 210, 0.06);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  color: var(--ink-2);
-}
 .world__media {
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -1139,6 +1198,14 @@ input {
   }
   .world__media {
     order: 2;
+    align-self: stretch; /* тянем на всю высоту колонки — без пустого места */
+  }
+  .world__media .artframe {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+  .world__media .world__video {
+    height: 100%;
   }
 }
 
@@ -1357,6 +1424,104 @@ input {
   color: var(--magenta);
   font-size: var(--text-xs);
   margin-top: 0.5rem;
+}
+
+/* ---- Social prompt (промо-окно соцсетей при скролле) ------------------- */
+.social-prompt {
+  position: fixed;
+  z-index: 120;
+  left: 50%;
+  bottom: var(--space-sm);
+  width: min(420px, calc(100vw - 2 * var(--gutter)));
+  padding: var(--space-md);
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(92, 124, 255, 0.25), transparent 55%),
+    radial-gradient(120% 140% at 100% 100%, rgba(255, 92, 200, 0.2), transparent 55%),
+    linear-gradient(180deg, var(--surface), var(--bg-1));
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow-md);
+  transform: translate(-50%, 170%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.45s var(--ease), opacity 0.45s var(--ease), visibility 0.45s;
+}
+.social-prompt.is-open {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.social-prompt__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--ink-2);
+  background: rgba(140, 150, 210, 0.1);
+  transition: color 0.2s, background 0.2s;
+}
+.social-prompt__close:hover {
+  color: #fff;
+  background: rgba(140, 150, 210, 0.2);
+}
+.social-prompt__kicker {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+.social-prompt__title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: var(--text-lg);
+  letter-spacing: -0.02em;
+  margin-top: 0.3rem;
+  padding-right: 2rem;
+}
+.social-prompt__text {
+  margin-top: 0.4rem;
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+}
+.social-prompt__socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  margin-top: var(--space-sm);
+}
+.social-prompt__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: var(--space-sm);
+}
+.social-prompt__never {
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+  padding: 0.35rem;
+  transition: color 0.2s;
+}
+.social-prompt__never:hover {
+  color: var(--ink-2);
+}
+@media (min-width: 720px) {
+  .social-prompt {
+    left: auto;
+    right: var(--space-md);
+    bottom: var(--space-md);
+    transform: translate(0, 170%);
+  }
+  .social-prompt.is-open {
+    transform: translate(0, 0);
+  }
 }
 
 /* ---- Footer ------------------------------------------------------------ */

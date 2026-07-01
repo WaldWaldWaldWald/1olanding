@@ -111,16 +111,21 @@ const Apple = () => (
 )
 const Android = () => (
   <svg {...svg()}>
-    <path
-      d="M7 10a1 1 0 00-1 1v5a1 1 0 002 0v-5a1 1 0 00-1-1zM17 10a1 1 0 00-1 1v5a1 1 0 002 0v-5a1 1 0 00-1-1zM5 11v6a1 1 0 001 1h1v2.2a1 1 0 002 0V18h2v2.2a1 1 0 002 0V18h1a1 1 0 001-1v-6H5z"
-      fill="currentColor"
-    />
-    <path
-      d="M8.3 6.2L7.4 4.8a.4.4 0 01.7-.4l.9 1.5a5.6 5.6 0 014 0l.9-1.5a.4.4 0 01.7.4l-.9 1.4A4.7 4.7 0 0116.5 10h-9a4.7 4.7 0 01.8-3.8z"
-      fill="currentColor"
-    />
-    <circle cx="9.5" cy="8" r=".7" fill="var(--bg-1, #0a0c1a)" />
-    <circle cx="14.5" cy="8" r=".7" fill="var(--bg-1, #0a0c1a)" />
+    {/* антенны */}
+    <path d="M8.4 5.6 7.1 3.6M15.6 5.6l1.3-2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    {/* голова-купол */}
+    <path d="M6 9.6a6 6 0 0 1 12 0Z" fill="currentColor" />
+    {/* глаза (вырез фоном) */}
+    <circle cx="9.7" cy="7.4" r=".85" fill="#0a0c1a" />
+    <circle cx="14.3" cy="7.4" r=".85" fill="#0a0c1a" />
+    {/* тело */}
+    <rect x="6" y="10.7" width="12" height="7.3" rx="1.5" fill="currentColor" />
+    {/* руки */}
+    <rect x="3.2" y="11" width="1.8" height="5" rx=".9" fill="currentColor" />
+    <rect x="19" y="11" width="1.8" height="5" rx=".9" fill="currentColor" />
+    {/* ноги */}
+    <rect x="8.8" y="17.4" width="1.8" height="3.1" rx=".9" fill="currentColor" />
+    <rect x="13.4" y="17.4" width="1.8" height="3.1" rx=".9" fill="currentColor" />
   </svg>
 )
 const Desktop = () => (
@@ -173,6 +178,14 @@ const TikTok = () => (
     />
   </svg>
 )
+const Facebook = () => (
+  <svg {...svg()}>
+    <path
+      d="M13.5 21v-7.3h2.4l.4-2.9h-2.8V8.9c0-.8.2-1.4 1.4-1.4h1.5V4.9c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.2H8.2v2.9h2.6V21h2.7z"
+      fill="currentColor"
+    />
+  </svg>
+)
 const Twitch = () => (
   <svg {...svg()}>
     <path
@@ -185,6 +198,7 @@ const Twitch = () => (
 
 export const socialIcons = {
   discord: Discord,
+  facebook: Facebook,
   x: X,
   youtube: YouTube,
   telegram: Telegram,
