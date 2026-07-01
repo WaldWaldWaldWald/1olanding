@@ -1,15 +1,20 @@
 import { useState } from 'react'
 import { useReveal } from './hooks/useReveal.js'
-import { play as playContent } from './content.js'
+import { play as playContent, features } from './content.js'
 import Header from './components/Header.jsx'
 import MobileMenu from './components/MobileMenu.jsx'
 import Hero from './components/Hero.jsx'
 import WorldSection from './components/WorldSection.jsx'
 import Features from './components/Features.jsx'
+import ShowcaseBreak from './components/ShowcaseBreak.jsx'
 import Newsletter from './components/Newsletter.jsx'
 import Footer from './components/Footer.jsx'
 import TrailerModal from './components/TrailerModal.jsx'
 import PlayModal from './components/PlayModal.jsx'
+
+// Издания/предзаказ — до полноэкранной вставки; видео/медиа — после неё.
+const editions = features.slice(0, 2)
+const mediaFeatures = features.slice(2)
 
 // Однастраничный лендинг 1orbit. Глобальные оверлеи (меню, модалки) живут тут.
 export default function App() {
@@ -39,7 +44,20 @@ export default function App() {
       <main>
         <Hero onPlay={openPlay} onPreRegister={openPreRegister} />
         <WorldSection />
-        <Features onTrailer={() => setTrailerOpen(true)} />
+        <Features
+          id="features"
+          kicker="Что внутри"
+          title="Собери орбиту под себя"
+          items={editions}
+        />
+        <ShowcaseBreak />
+        <Features
+          id="videos"
+          kicker="Смотри и качай"
+          title="Видео и материалы"
+          items={mediaFeatures}
+          onTrailer={() => setTrailerOpen(true)}
+        />
         <Newsletter />
       </main>
 

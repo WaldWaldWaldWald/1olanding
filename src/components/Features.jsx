@@ -1,14 +1,21 @@
-import { features } from '../content.js'
+import { features as allFeatures } from '../content.js'
 import Section from './Section.jsx'
 import FeatureCard from './FeatureCard.jsx'
 
 // Сетка фич-карточек. Широкие (16:9) карточки занимают всю ширину ряда,
-// создавая ритм как в оригинале. Якорь #features + #trailer/#media внутри.
-export default function Features({ onTrailer }) {
+// создавая ритм как в оригинале. items/id/kicker/title параметризуемы —
+// чтобы разбить карточки на группы вокруг полноэкранной арт-вставки.
+export default function Features({
+  items = allFeatures,
+  id = 'features',
+  kicker = 'Что внутри',
+  title = 'Собери орбиту под себя',
+  onTrailer,
+}) {
   return (
-    <Section id="features" kicker="Что внутри" title="Собери орбиту под себя">
+    <Section id={id} kicker={kicker} title={title}>
       <div className="features">
-        {features.map((f, i) => {
+        {items.map((f, i) => {
           const wide = f.art.ratio.startsWith('16')
           return (
             <FeatureCard

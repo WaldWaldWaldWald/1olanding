@@ -25,6 +25,15 @@ export default function MobileMenu({ open, onClose, onPlay }) {
   return (
     <div className={`menu${open ? ' is-open' : ''}`} aria-hidden={!open}>
       <div className="container menu__top">
+        <span className="menu__lang" aria-label="Язык интерфейса: русский">
+          Русский
+        </span>
+        <button type="button" className="icon-btn" onClick={onClose} aria-label="Закрыть меню">
+          <CloseIcon />
+        </button>
+      </div>
+
+      <div className="container menu__brandline" aria-hidden="true">
         <span className="brand">
           <span className="brand__mark">
             <OrbitMark />
@@ -33,19 +42,16 @@ export default function MobileMenu({ open, onClose, onPlay }) {
             1<b>orbit</b>
           </span>
         </span>
-        <button type="button" className="icon-btn" onClick={onClose} aria-label="Закрыть меню">
-          <CloseIcon />
-        </button>
+        <span className="menu__brandline-sep" />
+        <span className="menu__brandline-sub">PvPvE космо-MMO</span>
       </div>
 
       <nav className="container menu__links" aria-label="Меню">
-        {nav.map((item, i) => (
-          <a
-            key={item.href}
-            href={item.href}
-            ref={i === 0 ? firstLink : null}
-            onClick={onClose}
-          >
+        <a href="#top" aria-current="page" ref={firstLink} onClick={onClose}>
+          Главная
+        </a>
+        {nav.map((item) => (
+          <a key={item.href} href={item.href} onClick={onClose}>
             {item.label}
           </a>
         ))}
