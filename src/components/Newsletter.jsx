@@ -14,7 +14,7 @@ export default function Newsletter() {
   const onSubmit = (e) => {
     e.preventDefault()
     if (!EMAIL_RE.test(email.trim())) {
-      setError('Введи корректный email')
+      setError(newsletter.error)
       return
     }
     setError('')
@@ -23,12 +23,21 @@ export default function Newsletter() {
   }
 
   return (
-    <section className="section" id="newsletter">
+    <section className="section" id={newsletter.id}>
       <div className="container">
         <div className="newsletter reveal">
           <p className="kicker">{newsletter.kicker}</p>
           <h2 className="newsletter__title">{newsletter.title}</h2>
           <p className="newsletter__body">{newsletter.body}</p>
+
+          <ul className="newsletter__benefits">
+            {newsletter.benefits.map((b) => (
+              <li className="newsletter__benefit" key={b}>
+                <CheckIcon />
+                {b}
+              </li>
+            ))}
+          </ul>
 
           {done ? (
             <div className="newsletter__success" role="status">
@@ -41,6 +50,7 @@ export default function Newsletter() {
                 <label className="field">
                   <MailIcon />
                   <input
+                    id="prereg-email"
                     type="email"
                     inputMode="email"
                     autoComplete="email"

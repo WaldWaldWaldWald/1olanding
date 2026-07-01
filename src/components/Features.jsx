@@ -11,6 +11,7 @@ export default function Features({
   kicker = 'Что внутри',
   title = 'Собери орбиту под себя',
   onTrailer,
+  onPreRegister,
 }) {
   return (
     <Section id={id} kicker={kicker} title={title}>
@@ -24,6 +25,7 @@ export default function Features({
               feature={f}
               wide={wide}
               onTrailer={onTrailer}
+              onPreRegister={onPreRegister}
               style={{ '--reveal-delay': `${(i % 2) * 90}ms` }}
             />
           )

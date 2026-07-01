@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { brand, nav } from '../content.js'
+import { brand, nav, hero } from '../content.js'
 import { OrbitMark, MenuIcon } from '../Icons.jsx'
 
 // Липкий хедер: на скролле появляется фон/блюр (.is-scrolled). CTA остаётся
 // всегда. На десктопе — навигация по якорям; на мобильном — бургер.
-export default function Header({ onOpenMenu, onPlay }) {
+export default function Header({ onOpenMenu, onPreRegister }) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -35,8 +35,8 @@ export default function Header({ onOpenMenu, onPlay }) {
         </nav>
 
         <div className="header__actions">
-          <button type="button" className="btn btn--primary" onClick={onPlay}>
-            Играть бесплатно
+          <button type="button" className="btn btn--primary" onClick={onPreRegister}>
+            {hero.primaryCta}
           </button>
           <button
             type="button"

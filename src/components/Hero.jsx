@@ -5,7 +5,7 @@ import ShardField from './ShardField.jsx'
 import { useParallax, prefersReducedMotion } from '../hooks/useParallax.js'
 
 // Hero: фон-осколки с параллаксом + лого-локап, тэглайн, CTA и платформы.
-export default function Hero({ onPlay, onPreRegister }) {
+export default function Hero({ onPreRegister, onTrailer }) {
   const ref = useRef(null)
   useParallax(ref, { disabled: prefersReducedMotion() })
 
@@ -25,13 +25,15 @@ export default function Hero({ onPlay, onPreRegister }) {
         <p className="hero__lead">{hero.lead}</p>
 
         <div className="hero__cta">
-          <button type="button" className="btn btn--nebula btn--lg" onClick={onPlay}>
+          <button type="button" className="btn btn--nebula btn--lg" onClick={onPreRegister}>
             {hero.primaryCta}
           </button>
-          <button type="button" className="btn btn--ghost btn--lg" onClick={onPreRegister}>
+          <button type="button" className="btn btn--ghost btn--lg" onClick={onTrailer}>
             {hero.secondaryCta}
           </button>
         </div>
+
+        <p className="hero__assurance">{hero.assurance}</p>
 
         <div className="hero__best">
           <span className="hero__best-label">{hero.bestOn}</span>

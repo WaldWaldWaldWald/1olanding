@@ -585,6 +585,12 @@ input {
   justify-content: center;
   margin-top: var(--space-md);
 }
+.hero__assurance {
+  margin-top: var(--space-xs);
+  font-size: var(--text-xs);
+  letter-spacing: 0.02em;
+  color: var(--ink-3);
+}
 .hero__best {
   margin-top: var(--space-md);
   display: flex;
@@ -708,6 +714,98 @@ input {
   margin-top: var(--space-sm);
   color: var(--ink-2);
   font-size: var(--text-md);
+}
+
+/* ---- Steps («Как играть» — 3 шага) ------------------------------------ */
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-sm);
+  grid-template-columns: 1fr;
+}
+.step {
+  position: relative;
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--surface), var(--bg-1));
+  border: 1px solid var(--line);
+}
+.step__n {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-2xl);
+  line-height: 1;
+  background: var(--nebula);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.step__title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: var(--text-lg);
+  letter-spacing: -0.02em;
+  margin-top: var(--space-2xs);
+}
+.step__body {
+  margin-top: var(--space-2xs);
+  color: var(--ink-2);
+}
+@media (min-width: 720px) {
+  .steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ---- FAQ (аккордеон на <details>) -------------------------------------- */
+.faq {
+  display: grid;
+  gap: var(--space-2xs);
+  max-width: 820px;
+}
+.faq__item {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(140, 150, 210, 0.05);
+  transition: border-color 0.2s, background 0.2s;
+}
+.faq__item[open] {
+  border-color: var(--line-strong);
+  background: rgba(140, 150, 210, 0.08);
+}
+.faq__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--text-md);
+  color: var(--ink);
+  cursor: pointer;
+  list-style: none;
+}
+.faq__q::-webkit-details-marker {
+  display: none;
+}
+.faq__q svg {
+  width: 22px;
+  height: 22px;
+  color: var(--accent);
+  flex: none;
+  transition: transform 0.25s var(--ease);
+}
+.faq__item[open] .faq__q svg {
+  transform: rotate(180deg);
+}
+.faq__a {
+  padding: 0 var(--space-md) var(--space-md);
+  margin: 0;
+  color: var(--ink-2);
+  max-width: 68ch;
 }
 
 /* ---- Feature cards ----------------------------------------------------- */
@@ -1148,6 +1246,32 @@ input {
   color: var(--ink-2);
   max-width: 50ch;
   margin: var(--space-sm) auto 0;
+}
+.newsletter__benefits {
+  list-style: none;
+  margin: var(--space-md) auto 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  justify-content: center;
+}
+.newsletter__benefit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line-strong);
+  background: rgba(5, 6, 14, 0.4);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+.newsletter__benefit svg {
+  width: 15px;
+  height: 15px;
+  color: var(--accent);
 }
 .newsletter__form {
   display: flex;

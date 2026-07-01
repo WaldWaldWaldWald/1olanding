@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react'
-import { brand, nav, socials } from '../content.js'
+import { nav, socials, hero } from '../content.js'
 import { OrbitMark, CloseIcon, socialIcons } from '../Icons.jsx'
 import { useScrollLock } from '../hooks/useScrollLock.js'
 
 // Полноэкранное мобильное меню: lock body-scroll, Escape, фокус на первую
 // ссылку при открытии. Закрывается по ссылке, крестику и Escape.
-export default function MobileMenu({ open, onClose, onPlay }) {
+export default function MobileMenu({ open, onClose, onPreRegister, onTrailer }) {
   const firstLink = useRef(null)
   useScrollLock(open)
 
@@ -63,14 +63,21 @@ export default function MobileMenu({ open, onClose, onPlay }) {
           className="btn btn--nebula btn--lg btn--block"
           onClick={() => {
             onClose()
-            onPlay()
+            onPreRegister()
           }}
         >
-          Играть бесплатно
+          {hero.primaryCta}
         </button>
-        <a className="btn btn--ghost btn--lg btn--block" href="#features" onClick={onClose}>
-          Предрегистрация
-        </a>
+        <button
+          type="button"
+          className="btn btn--ghost btn--lg btn--block"
+          onClick={() => {
+            onClose()
+            onTrailer()
+          }}
+        >
+          {hero.secondaryCta}
+        </button>
 
         <div className="menu__social">
           {socials.map((s) => {

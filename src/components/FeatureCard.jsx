@@ -2,20 +2,31 @@ import ArtFrame from './ArtFrame.jsx'
 import { ArrowIcon } from '../Icons.jsx'
 
 // Карточка фичи: медиа-рамка (плейсхолдер под арт) + текст и CTA.
-// kind==='trailer' → кнопка открывает видео-модалку; href → ссылка; иначе кнопка.
-export default function FeatureCard({ feature, wide = false, onTrailer, style, id }) {
+// kind: 'trailer' → открыть видео; 'prereg' → к форме предрегистрации; иначе ссылка.
+export default function FeatureCard({ feature, wide = false, onTrailer, onPreRegister, style, id }) {
   const { kicker, title, body, cta, accent, kind, href, art } = feature
   const isTrailer = kind === 'trailer'
 
-  const ctaNode = isTrailer ? (
-    <button type="button" className="btn card__btn" onClick={onTrailer}>
-      {cta} <ArrowIcon />
-    </button>
-  ) : (
-    <a className="btn card__btn" href={href || '#'}>
-      {cta} <ArrowIcon />
-    </a>
-  )
+  let ctaNode
+  if (isTrailer) {
+    ctaNode = (
+      <button type="button" className="btn card__btn" onClick={onTrailer}>
+        {cta} <ArrowIcon />
+      </button>
+    )
+  } else if (kind === 'prereg') {
+    ctaNode = (
+      <button type="button" className="btn card__btn" onClick={onPreRegister}>
+        {cta} <ArrowIcon />
+      </button>
+    )
+  } else {
+    ctaNode = (
+      <a className="btn card__btn" href={href || '#'}>
+        {cta} <ArrowIcon />
+      </a>
+    )
+  }
 
   return (
     <article
