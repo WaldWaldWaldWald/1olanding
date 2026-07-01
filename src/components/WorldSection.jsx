@@ -26,8 +26,14 @@ export default function WorldSection() {
             ))}
           </ul>
 
+          <ul className="world__systems" aria-label="Игровые системы">
+            {world.systems.map((s) => (
+              <li key={s}>{s}</li>
+            ))}
+          </ul>
+
           <div style={{ marginTop: 'var(--space-md)' }}>
-            <a className="btn btn--ghost" href="#features">
+            <a className="btn btn--ghost" href="#preregister">
               {world.cta} <ArrowIcon />
             </a>
           </div>

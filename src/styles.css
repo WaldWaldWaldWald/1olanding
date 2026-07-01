@@ -1110,6 +1110,23 @@ input {
   color: var(--accent);
   flex: none;
 }
+.world__systems {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-md) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3xs);
+}
+.world__systems li {
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  background: rgba(140, 150, 210, 0.06);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--ink-2);
+}
 .world__media {
   border-radius: var(--radius-lg);
   overflow: hidden;
