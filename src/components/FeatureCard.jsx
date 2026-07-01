@@ -8,11 +8,11 @@ export default function FeatureCard({ feature, wide = false, onTrailer, style, i
   const isTrailer = kind === 'trailer'
 
   const ctaNode = isTrailer ? (
-    <button type="button" className="link-arrow" onClick={onTrailer}>
+    <button type="button" className="btn card__btn" onClick={onTrailer}>
       {cta} <ArrowIcon />
     </button>
   ) : (
-    <a className="link-arrow" href={href || '#'}>
+    <a className="btn card__btn" href={href || '#'}>
       {cta} <ArrowIcon />
     </a>
   )

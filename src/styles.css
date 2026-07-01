@@ -73,7 +73,8 @@
 
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Orbitron', var(--font);
+  --font-display: 'Orbitron', var(--font); /* латинский wordmark «1orbit» */
+  --font-heading: 'Unbounded', var(--font); /* заголовки: кириллица + латиница, тяжёлый deco */
 }
 
 /* ---- Reset / base ------------------------------------------------------ */
@@ -462,6 +463,15 @@ input {
   /* лёгкий встречный параллакс контента */
   transform: translateY(calc(var(--p) * 40px));
 }
+/* мягкий скрим прямо под текстом — читаемость поверх осколков */
+.hero__content::before {
+  content: '';
+  position: absolute;
+  inset: -4% -12%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(66% 58% at 50% 48%, rgba(5, 6, 14, 0.74), transparent 72%);
+}
 .hero__eyebrow {
   display: inline-flex;
   align-items: center;
@@ -506,10 +516,10 @@ input {
   filter: drop-shadow(0 6px 40px rgba(92, 124, 255, 0.45));
 }
 .hero__tagline {
-  font-family: var(--font-display);
-  font-weight: 600;
+  font-family: var(--font-heading);
+  font-weight: 700;
   font-size: var(--text-lg);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.01em;
   color: var(--ink);
   text-transform: uppercase;
 }
@@ -639,11 +649,11 @@ input {
   margin-bottom: var(--space-lg);
 }
 .section__title {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: var(--text-2xl);
   margin-top: var(--space-2xs);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 .section__lead {
   margin-top: var(--space-sm);
@@ -698,9 +708,11 @@ input {
   color: var(--sol);
 }
 .card__title {
-  font-family: var(--font-display);
-  font-weight: 700;
+  font-family: var(--font-heading);
+  font-weight: 800;
   font-size: var(--text-xl);
+  letter-spacing: -0.02em;
+  line-height: 1.02;
 }
 .card__text {
   color: var(--ink-2);
@@ -724,6 +736,52 @@ input {
 }
 .card[data-accent='sol']::before {
   background: var(--sol);
+}
+
+/* фон карточки, подкрашенный под акцент (аналог цветных карточек оригинала) */
+.card[data-accent='cyan'] {
+  background:
+    radial-gradient(120% 85% at 50% -10%, rgba(54, 226, 255, 0.2), transparent 62%),
+    linear-gradient(180deg, var(--surface), var(--bg-1));
+}
+.card[data-accent='nox'] {
+  background:
+    radial-gradient(120% 85% at 50% -10%, rgba(139, 92, 255, 0.3), transparent 62%),
+    linear-gradient(180deg, var(--surface), var(--bg-1));
+}
+.card[data-accent='sol'] {
+  background:
+    radial-gradient(120% 85% at 50% -10%, rgba(255, 207, 92, 0.22), transparent 62%),
+    linear-gradient(180deg, var(--surface), var(--bg-1));
+}
+
+/* CTA карточки — залитая pill-кнопка цвета акцента, тёмный текст */
+.card__btn {
+  align-self: flex-start;
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: 0 8px 26px -12px rgba(54, 226, 255, 0.7);
+}
+.card__btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s var(--ease);
+}
+.card__btn:hover {
+  filter: brightness(1.06);
+}
+.card__btn:hover svg {
+  transform: translateX(4px);
+}
+.card[data-accent='nox'] .card__btn {
+  background: var(--nox);
+  color: #fff;
+  box-shadow: 0 8px 26px -12px rgba(139, 92, 255, 0.7);
+}
+.card[data-accent='sol'] .card__btn {
+  background: var(--sol);
+  color: #2a1c00;
+  box-shadow: 0 8px 26px -12px rgba(255, 207, 92, 0.55);
 }
 
 @media (min-width: 720px) {
@@ -849,6 +907,10 @@ input {
   gap: var(--space-lg);
   align-items: center;
 }
+.world__title {
+  font-size: var(--text-3xl);
+  line-height: 1;
+}
 .world__bullets {
   list-style: none;
   padding: 0;
@@ -927,9 +989,10 @@ input {
   background: rgba(140, 150, 210, 0.2);
 }
 .modal__title {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: var(--text-xl);
+  letter-spacing: -0.02em;
 }
 .modal__sub {
   color: var(--ink-2);
@@ -994,10 +1057,11 @@ input {
   text-align: center;
 }
 .newsletter__title {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: var(--text-2xl);
   margin-top: var(--space-2xs);
+  letter-spacing: -0.02em;
 }
 .newsletter__body {
   color: var(--ink-2);

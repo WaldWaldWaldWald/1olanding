@@ -14,7 +14,7 @@ export default function WorldSection() {
 
         <div className="world__text reveal" style={{ '--reveal-delay': '90ms' }}>
           <p className="kicker">{world.kicker}</p>
-          <h2 className="section__title">{world.title}</h2>
+          <h2 className="section__title world__title nebula-text">{world.title}</h2>
           <p className="section__lead">{world.body}</p>
 
           <ul className="world__bullets">
